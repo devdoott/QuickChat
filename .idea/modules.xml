@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Qauth.iml" filepath="$PROJECT_DIR$/Qauth.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mtproto/mtproto.iml" filepath="$PROJECT_DIR$/mtproto/mtproto.iml" />
+      <module fileurl="file://$PROJECT_DIR$/tl-core/tl-core.iml" filepath="$PROJECT_DIR$/tl-core/tl-core.iml" />
+    </modules>
+  </component>
+</project>
