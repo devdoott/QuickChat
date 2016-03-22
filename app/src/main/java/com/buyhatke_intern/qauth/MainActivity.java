@@ -2,8 +2,6 @@ package com.buyhatke_intern.qauth;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -22,6 +20,7 @@ import  android.content.*;
 import android.support.multidex.*;
 import android.widget.*;
 import android.view.inputmethod.*;
+import android.net.*;
 
 public class MainActivity extends AppCompatActivity {
    //private TextView mTextView=new TextView();
@@ -48,6 +47,13 @@ mTextView=(TextView)findViewById(R.id.textView);
                     InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
                 }
+                if(!isNetworkConnected()){
+                    Toast.makeText(MainActivity.this,
+                            R.string.nc_toast,
+                            Toast.LENGTH_SHORT).show();
+                }
+                else
+                {new teleclass().execute();}
                 mEditText.setCursorVisible(false);
                 mEditText.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -55,7 +61,7 @@ mTextView=(TextView)findViewById(R.id.textView);
                         mEditText.setCursorVisible(true);
                     }
                 });
-                new teleclass().execute();
+
             }
         });
 
@@ -185,6 +191,11 @@ mTextView=(TextView)findViewById(R.id.textView);
         return n.geti();
 
 
+    }
+    private boolean isNetworkConnected() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        return cm.getActiveNetworkInfo() != null;
     }
     //catch (IOException e){}
 }

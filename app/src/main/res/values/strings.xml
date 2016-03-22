@@ -6,4 +6,6 @@
     <string name="error_toast">Error</string>
     <string name="incorrect_toast">Cannot Authorise</string>
     <string name="null_toast">Authorisation key cannot be generated</string>
+
+    <string name="nc_toast">No connection !</string>
 </resources>
