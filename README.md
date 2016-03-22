@@ -8,7 +8,7 @@ Libraries used :
 Telegram api link:    
 https://github.com/ex3ndr/telegram-api.git    
 
-The telegram API is unable to generate the authorisation key requred to make RPC calls ,the logCat message is as follows:      
+The telegram API is unable to generate the authorisation key requred to make RPCs ,the logCat message is as follows:      
 MTProto#1001:BadMessage: 48 #6264602863738028576    
 I think there are some issues on the server end as BadMessage implies that the packets received from the server violate the MT protocol.
-The app cannot be further built without making RPC calls . Updates will be given as soon as the issues are resolved.
+The app cannot be further built without making RPCs . Updates will be given as soon as the issues are resolved.
