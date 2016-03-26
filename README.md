@@ -1,4 +1,4 @@
-# QuickChat
+#  QuickChat
 Authentication successful . Messaging feature will be added soon.      
 Libraries used :    
     com.android.support:appcompat-v7:23.2.0    
