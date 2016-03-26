@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:hint="@string/user_label"
+        style="?android:listSeparatorTextViewStyle"/>
+    <EditText
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:id="@+id/user_name"
+        android:hint="@string/enter_message"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:hint="@string/Message"
+        style="?android:listSeparatorTextViewStyle"/>
+    <Button android:id="@+id/message_date"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+        />
+    <CheckBox android:id="@+id/Read"
+              android:layout_height="wrap_content"
+              android:layout_width="match_parent"
+              android:layout_marginLeft="16dp"
+              android:layout_marginRight="16dp"
+              android:text="@string/Read_label"
+        />
+
+</LinearLayout>

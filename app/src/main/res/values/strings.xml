@@ -5,7 +5,13 @@
 
     <string name="error_toast">Error</string>
     <string name="incorrect_toast">Cannot Authorise</string>
-    <string name="null_toast">Authorisation key cannot be generated</string>
-
+    <string name="null_toast">Connection Timeout</string>
+<string name="auth">Authenticating Contacts\nPlease wait a minute...</string>
     <string name="nc_toast">No connection !</string>
+    <string name="title_activity_register">registerActivity</string>
+    <string name="enter_message">Enter Message</string>
+    <string name="user_label">User</string>
+    <string name="Message">Message</string>
+    <string name="Read_label">Read</string>
+    <string name="title_activity_login">Sign in</string>
 </resources>

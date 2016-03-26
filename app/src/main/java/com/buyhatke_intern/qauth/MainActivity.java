@@ -1,6 +1,8 @@
 package com.buyhatke_intern.qauth;
 
+import android.graphics.Color;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -9,18 +11,20 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import org.telegram.api.auth.TLSentCode;
+//import org.telegram.api.auth.TLSentCode;
 import org.telegram.api.engine.*;
 import org.telegram.api.TLAbsUpdates;
-
+import org.telegram.api.auth.*;
 import org.telegram.api.requests.*;
 
+import java.io.IOException;
 import  java.lang.*;
 import  android.content.*;
 import android.support.multidex.*;
 import android.widget.*;
 import android.view.inputmethod.*;
 import android.net.*;
+import org.telegram.api.*;
 
 public class MainActivity extends AppCompatActivity {
    //private TextView mTextView=new TextView();
@@ -29,31 +33,48 @@ public class MainActivity extends AppCompatActivity {
 private EditText mEditText;
     private String mnumber;
     private Button mButton;
+    private Intent reg;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        reg= new Intent(MainActivity.this, registerActivity.class);
 mEditText=(EditText)findViewById(R.id.editText);
         mButton=(Button)findViewById(R.id.button);
+        mButton.setBackgroundColor(Color.parseColor("#18d6f0"));
+        mButton.setEnabled(true);
 mTextView=(TextView)findViewById(R.id.textView);
      //   mTextView.setText("Hello");
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+            //    reg.putExtra("mnumber",mnumber);
+                mButton.setBackgroundColor(Color.parseColor("#696969"));
+
                 mnumber = mEditText.getText().toString().trim();
-              //  mTextView.setText(mnumber);
+                mButton.setEnabled(false);
+
+                //  mTextView.setText(mnumber);
                 View view = MainActivity.this.getCurrentFocus();
                 if (view != null) {
-                    InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
                 }
-                if(!isNetworkConnected()){
+                if (!isNetworkConnected()) {
                     Toast.makeText(MainActivity.this,
                             R.string.nc_toast,
                             Toast.LENGTH_SHORT).show();
+                } else {
+                    try {
+                        new teleclass().execute();
+                    } catch (NullPointerException e) {
+                        Toast.makeText(MainActivity.this,
+                                R.string.nc_toast,
+                                Toast.LENGTH_SHORT).show();
+                    }
                 }
-                else
-                {new teleclass().execute();}
                 mEditText.setCursorVisible(false);
                 mEditText.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -105,90 +126,75 @@ mTextView=(TextView)findViewById(R.id.textView);
                 Toast.makeText(MainActivity.this,
                         R.string.null_toast,
                         Toast.LENGTH_LONG).show();
-            }
-            else if(i.equals(0)){
-                Toast.makeText(MainActivity.this,
-                        R.string.correct_toast,
-                        Toast.LENGTH_SHORT).show();
+                mButton.setBackgroundColor(Color.parseColor("#18d6f0"));
+                mButton.setEnabled(true);
             }
             else if(i.equals(1)){
-                Toast.makeText(MainActivity.this,
+                setContentView(R.layout.contact_auth);
+                /*Toast.makeText(MainActivity.this,
+                        R.string.correct_toast,
+                        Toast.LENGTH_SHORT).show();*/
+                Intent contact=new Intent(MainActivity.this,UserListActivity.class);
+                contact.putExtra("mnumber", mnumber);
+
+                startActivity(contact);
+
+            }
+            else if(i.equals(0)){
+                /*Toast.makeText(MainActivity.this,
                         R.string.incorrect_toast,
-                        Toast.LENGTH_SHORT).show();
+                        Toast.LENGTH_SHORT).show();*/
+                reg.putExtra("mnumber",mnumber);
+
+                startActivity(reg);
             }
             else if(i.equals(2)){
                 Toast.makeText(MainActivity.this,
                         R.string.error_toast,
                         Toast.LENGTH_SHORT).show();
+                mButton.setBackgroundColor(Color.parseColor("#18d6f0"));
+                mButton.setEnabled(true);
             }
 
         }
 
     }
+
     public Integer tele(){
+        Integer i;
       //public static Integer i;
-        TelegramApi api = new TelegramApi(new MyApiStorage(), new AppInfo(23564,"","","","en"), new ApiCallback()
-        {
-           // @Override
-            public void onApiDies(TelegramApi api) {
-                // When auth key or user authorization dies
-            }
-
-            @Override
-            public void onAuthCancelled(TelegramApi telegramApi) {
-
-            }
-
-            @Override
-            public void onUpdatesInvalidated(TelegramApi api) {
-                // When api engine expects that update sequence might be broken
-            }
-
-            @Override
-            public void onUpdate(TLAbsUpdates tlAbsUpdates) {
-
-            }
-        });
-
-        TLRequestAuthSendCode authSendCode=new TLRequestAuthSendCode(mnumber,0,23564,"72403e0500ec6bf9c2685f80ee670a4d","en");
-      // try( TLSentCode sentCode=api.doRpcCall(authSendCode)){}catch(IOException e){}
+        Teleapi.start();
 
 
-// Syncronized call
-// All request objects are in org.telegram.api.requests package
-      // try( TLConfig config = api.doRpcCall(new TLRequestHelpGetConfig())){
+        //TLRequestAuthCheckPhone authSendCode=new TLRequestAuthCheckPhone(mnumber);
+       // String phoneNumber = "1234567890";
+      //
 
-// Standart async call
-      class rpp implements   RpcCallback<TLSentCode>{ private Integer i;
+// Call service synchronously
+try {
 
-            @Override
-            public void onResult(TLSentCode tlSentCode) {
-                boolean reg=tlSentCode.getPhoneRegistered();
+    //reg.putExtra("dc",state.getPrimaryDc());
+    TLCheckedPhone checkedPhone = Teleapi.authcheckphone(mnumber);
+    boolean invited = checkedPhone.getPhoneInvited();
+    boolean registered = checkedPhone.getPhoneRegistered();
+  //  api.close();
 
-                if(reg==true){
-                    //             mTextView.setText("True");
-                    i= new Integer(0);
+    if(registered==true){
 
-                }
-                else
-                {
-                    //           mTextView.setText("false");
-                    i= new Integer(1);
-                }
-            }
+i=new Integer(1);
+    }
+    else {i=new Integer(0);
 
-            public void onError(int errorCode, String message)
-            {
-                //     mTextView.setText(message);
-                i=new Integer(2);
 
-            }
-      public Integer geti(){
-          return i;
-      }}
-        rpp n=new rpp();
-        api.doRpcCall(authSendCode, n);
-        return n.geti();
+       TLSentCode sentCode = Teleapi.authsendcode(mnumber);
+       // registered = sentCode.getPhoneRegistered();
+        reg.putExtra("phonehash",sentCode.getPhoneCodeHash());
+    }
+    return i;
+}catch (NullPointerException e){
+    //System.out.println(e+"////////////////////////////////////////////////////////////////////////////////////////////////////");
+    return null;}
+
 
 
     }
