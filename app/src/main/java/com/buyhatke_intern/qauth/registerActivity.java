@@ -156,13 +156,15 @@ public class registerActivity extends AppCompatActivity {
                // startActivity(contact);
             }
             else if(i.equals(1)){
-                setContentView(R.layout.contact_auth);
+                //setContentView(R.layout.contact_auth);
                 /*Toast.makeText(registerActivity.this,
                         R.string.correct_toast,
                         Toast.LENGTH_SHORT).show();*/
                 Intent contact=new Intent(registerActivity.this,UserListActivity.class);
                 contact.putExtra("mnumber", mnumber);
-
+                Toast.makeText(registerActivity.this,
+                        R.string.auth,
+                        Toast.LENGTH_LONG).show();
                 startActivity(contact);
 
 

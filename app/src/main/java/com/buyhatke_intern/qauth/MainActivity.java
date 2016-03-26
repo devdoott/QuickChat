@@ -131,13 +131,15 @@ mTextView=(TextView)findViewById(R.id.textView);
                 mButton.setEnabled(true);
             }
             else if(i.equals(1)){
-                setContentView(R.layout.contact_auth);
-                /*Toast.makeText(MainActivity.this,
-                        R.string.correct_toast,
-                        Toast.LENGTH_SHORT).show();*/
-                Intent contact=new Intent(MainActivity.this,UserListActivity.class);
-                contact.putExtra("mnumber", mnumber);
+//                setContentView(R.layout.contact_auth);
 
+               //
+               //
+               Intent contact=new Intent(MainActivity.this,UserListActivity.class);
+                contact.putExtra("mnumber", mnumber);
+                Toast.makeText(MainActivity.this,
+                        R.string.auth,
+                        Toast.LENGTH_LONG).show();
                 startActivity(contact);
 
             }
@@ -145,7 +147,7 @@ mTextView=(TextView)findViewById(R.id.textView);
                 /*Toast.makeText(MainActivity.this,
                         R.string.incorrect_toast,
                         Toast.LENGTH_SHORT).show();*/
-                reg.putExtra("mnumber",mnumber);
+                reg.putExtra("mnumber", mnumber);
 
                 startActivity(reg);
             }

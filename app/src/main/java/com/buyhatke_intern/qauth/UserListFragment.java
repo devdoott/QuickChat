@@ -27,12 +27,12 @@ public class UserListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater,ViewGroup container,Bundle savedInstanceState){
        // View view =inflater.inflate(R.layout.contact_auth,container ,false);
-
+        new contact().execute();
        View  view =inflater.inflate(R.layout.fragment_user_list,container ,false);
         mUserRecyclerView=(RecyclerView)view.findViewById(R.id.user_recycler_view);
         mUserRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        new contact().execute();
+
         return view;
     }
 
