@@ -55,8 +55,7 @@ public class registerActivity extends AppCompatActivity {
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mButton.setEnabled(false);
-                mButton.setBackgroundColor(Color.parseColor("#696969"));
+
                 mfname = mEditText2.getText().toString().trim();
                 mlname = mEditText3.getText().toString().trim();
                 mcode = mEditText4.getText().toString().trim();
@@ -74,7 +73,10 @@ public class registerActivity extends AppCompatActivity {
                             R.string.nc_toast,
                             Toast.LENGTH_SHORT).show();
                 } else {
+                    mButton.setEnabled(false);
+                    mButton.setBackgroundColor(Color.parseColor("#696969"));
                     try {
+
                         new teleclass().execute();
                     } catch (NullPointerException e) {
                         Toast.makeText(registerActivity.this,

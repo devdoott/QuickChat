@@ -51,10 +51,9 @@ mTextView=(TextView)findViewById(R.id.textView);
             public void onClick(View v) {
 
             //    reg.putExtra("mnumber",mnumber);
-                mButton.setBackgroundColor(Color.parseColor("#696969"));
 
                 mnumber = mEditText.getText().toString().trim();
-                mButton.setEnabled(false);
+
 
                 //  mTextView.setText(mnumber);
                 View view = MainActivity.this.getCurrentFocus();
@@ -66,7 +65,9 @@ mTextView=(TextView)findViewById(R.id.textView);
                     Toast.makeText(MainActivity.this,
                             R.string.nc_toast,
                             Toast.LENGTH_SHORT).show();
-                } else {
+                } else {     mButton.setBackgroundColor(Color.parseColor("#696969"));
+                    mButton.setEnabled(false);
+
                     try {
                         new teleclass().execute();
                     } catch (NullPointerException e) {
