@@ -1,6 +1,7 @@
 package com.buyhatke_intern.qauth;
 
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -19,7 +20,7 @@ import android.util.Log;
 public class UserListFragment extends Fragment {
     private RecyclerView mUserRecyclerView;
     private UserAdapter mAdapter;
-    private  ArrayList<User> us ;
+    //private
     private ArrayList<String>name;
 
     private ArrayList<String>number;
@@ -31,11 +32,28 @@ public class UserListFragment extends Fragment {
         mUserRecyclerView=(RecyclerView)view.findViewById(R.id.user_recycler_view);
         mUserRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        updateUI();
+        new contact().execute();
         return view;
     }
 
+private class contact extends AsyncTask<Void,Void,ArrayList<User>>{
 
+    @Override
+    protected ArrayList<User> doInBackground(Void... params) {
+        ArrayList<User> us ;
+        UserLab userLab = UserLab.get(getActivity());
+        us= userLab.getUsers();
+        return us;
+    }
+
+    @Override
+    protected void onPostExecute(ArrayList<User> users) {
+        mAdapter = new UserAdapter(users);
+        mUserRecyclerView.setAdapter(mAdapter);
+        //super.onPostExecute(users);
+    }
+
+}
 
 
     private class UserHolder extends RecyclerView.ViewHolder{
@@ -72,13 +90,12 @@ public class UserListFragment extends Fragment {
             return mUsers.size();
         }
     }
-    private void updateUI() {
+   /* private void updateUI() {
 
         UserLab userLab = UserLab.get(getActivity());
         us= userLab.getUsers();
 
-        mAdapter = new UserAdapter(us);
-        mUserRecyclerView.setAdapter(mAdapter);
-    }
+
+    }*/
 
 }
